@@ -1,4 +1,4 @@
-This is my attempt to provide a fluent, composable, future for Java (mainly java6 and java7 as java8 has `CompletableFuture<V>`)
+This is my attempt to provide a fluent future for Java (mainly java6 and java7 as java8 has `CompletableFuture<V>`)
 
 The base type included here is `FluentFuture<V>` which builds on Guava's `ListenableFuture<V>` and adds methods to make the operations under Guava's `Futures` utility class members. Most of the existing types and interfaces are preserved, as is, from Guava and a few new ones have been added where it makes sense.
 
