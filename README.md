@@ -93,3 +93,18 @@ FluentCheckedFuture<Object, CustomException> checked =
     }
   });
 ```
+
+You can also combine `FluentFuture`s
+
+```java
+FluentFuture<Integer> f1 = ...
+FluentFuture<Double> f2 = ...
+FluentFuture<Combined> combined = FluentFutures.combine(f1, f2, new Combine2() {
+  public Combined combine(Integer left, Double right) {
+    return new Combined(left, right);
+  });
+
+combined.get();
+```
+
+TODO: FluentScheduledExecutorService and combine more than two futures
