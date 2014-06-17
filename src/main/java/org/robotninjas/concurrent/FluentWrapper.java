@@ -27,7 +27,7 @@ class FluentWrapper<V> extends ForwardingListenableFuture.SimpleForwardingListen
   }
 
   @Override
-  public <Y> FluentFuture<Y> transform(Function<V, Y> func, Executor executor) {
+  public <Y> FluentFuture<Y> transform(Executor executor, Function<V, Y> func) {
     return new FluentWrapper<>(Futures.transform(this, func, executor), this.executor);
   }
 
@@ -37,7 +37,7 @@ class FluentWrapper<V> extends ForwardingListenableFuture.SimpleForwardingListen
   }
 
   @Override
-  public <Y> FluentFuture<Y> transform(AsyncFunction<V, Y> func, Executor executor) {
+  public <Y> FluentFuture<Y> transform(Executor executor, AsyncFunction<V, Y> func) {
     return new FluentWrapper<>(Futures.transform(this, func, executor), this.executor);
   }
 
@@ -47,7 +47,7 @@ class FluentWrapper<V> extends ForwardingListenableFuture.SimpleForwardingListen
   }
 
   @Override
-  public FluentFuture<V> withFallback(FutureFallback<V> fallback, Executor executor) {
+  public FluentFuture<V> withFallback(Executor executor, FutureFallback<V> fallback) {
     return new FluentWrapper<>(Futures.withFallback(this, fallback, executor), this.executor);
   }
 
@@ -58,29 +58,29 @@ class FluentWrapper<V> extends ForwardingListenableFuture.SimpleForwardingListen
   }
 
   @Override
-  public FluentFuture<V> addCallback(FutureCallback<V> callback, Executor executor) {
+  public FluentFuture<V> addCallback(Executor executor, FutureCallback<V> callback) {
     Futures.addCallback(this, callback, executor);
     return this;
   }
 
   @Override
-  public FluentFuture<V> onSuccess(final Consumer<V> callback, Executor executor) {
-    return addCallback(ConsumerWrapper.success(callback), executor);
+  public FluentFuture<V> onSuccess(Executor executor, final Consumer<V> callback) {
+    return addCallback(executor, ConsumerWrapper.success(callback));
   }
 
   @Override
   public FluentFuture<V> onSuccess(final Consumer<V> callback) {
-    return onSuccess(callback, MoreExecutors.sameThreadExecutor());
+    return onSuccess(MoreExecutors.sameThreadExecutor(), callback);
   }
 
   @Override
-  public FluentFuture<V> onFailure(final Consumer<Throwable> callback, Executor executor) {
-    return addCallback(ConsumerWrapper.<V>failure(callback), executor);
+  public FluentFuture<V> onFailure(Executor executor, final Consumer<Throwable> callback) {
+    return addCallback(executor, ConsumerWrapper.<V>failure(callback));
   }
 
   @Override
   public FluentFuture<V> onFailure(final Consumer<Throwable> callback) {
-    return onFailure(callback, MoreExecutors.sameThreadExecutor());
+    return onFailure(MoreExecutors.sameThreadExecutor(), callback);
   }
 
   @Override

@@ -26,23 +26,23 @@ public class Example {
       FluentFuture<Double> f1 = fluentExecutor
           .submit(Callables.returning(1))
           .transform(ToDouble.CONVERT)
-          .onSuccess(SuccessLogger.LOG, loggingExecutor)
-          .onFailure(FailureLogger.LOG, loggingExecutor);
+          .onSuccess(loggingExecutor, SuccessLogger.LOG)
+          .onFailure(loggingExecutor, FailureLogger.LOG);
 
       System.out.println("2");
 
       FluentFuture<Double> f2 = fluentExecutor
           .submit(Callables.returning(2))
           .transform(ToDouble.CONVERT)
-          .onSuccess(SuccessLogger.LOG, loggingExecutor)
-          .onFailure(FailureLogger.LOG, loggingExecutor);
+          .onSuccess(loggingExecutor, SuccessLogger.LOG)
+          .onFailure(loggingExecutor, FailureLogger.LOG);
 
       System.out.println("3");
 
       FluentCheckedFuture<Double, CustomException> result = FluentFutures
           .combine(f1, f2, DoubleCombine.COMBINE)
-          .onSuccess(SuccessLogger.LOG, loggingExecutor)
-          .onFailure(FailureLogger.LOG, loggingExecutor)
+          .onSuccess(loggingExecutor, SuccessLogger.LOG)
+          .onFailure(loggingExecutor, FailureLogger.LOG)
           .makeChecked(CheckedConverter.CONVERT);
 
       System.out.println(result.checkedGet());

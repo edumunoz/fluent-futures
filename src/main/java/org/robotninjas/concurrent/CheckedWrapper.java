@@ -28,8 +28,8 @@ class CheckedWrapper<V, X extends Exception> extends FluentWrapper<V> implements
   }
 
   @Override
-  public <Y> FluentCheckedFuture<Y, X> transform(Function<V, Y> func, Executor executor) {
-    return (FluentCheckedFuture<Y, X>) super.transform(func, executor);
+  public <Y> FluentCheckedFuture<Y, X> transform(Executor executor, Function<V, Y> func) {
+    return (FluentCheckedFuture<Y, X>) super.transform(executor, func);
   }
 
   @Override
@@ -38,8 +38,8 @@ class CheckedWrapper<V, X extends Exception> extends FluentWrapper<V> implements
   }
 
   @Override
-  public <Y> FluentCheckedFuture<Y, X> transform(AsyncFunction<V, Y> func, Executor executor) {
-    return (FluentCheckedFuture<Y, X>) super.transform(func, executor);
+  public <Y> FluentCheckedFuture<Y, X> transform(Executor executor, AsyncFunction<V, Y> func) {
+    return (FluentCheckedFuture<Y, X>) super.transform(executor, func);
   }
 
   @Override
@@ -48,8 +48,8 @@ class CheckedWrapper<V, X extends Exception> extends FluentWrapper<V> implements
   }
 
   @Override
-  public FluentCheckedFuture<V, X> withFallback(FutureFallback<V> fallback, Executor executor) {
-    return (FluentCheckedFuture<V, X>) super.withFallback(fallback, executor);
+  public FluentCheckedFuture<V, X> withFallback(Executor executor, FutureFallback<V> fallback) {
+    return (FluentCheckedFuture<V, X>) super.withFallback(executor, fallback);
   }
 
   @Override
@@ -58,13 +58,13 @@ class CheckedWrapper<V, X extends Exception> extends FluentWrapper<V> implements
   }
 
   @Override
-  public FluentCheckedFuture<V, X> addCallback(FutureCallback<V> callback, Executor executor) {
-    return (FluentCheckedFuture<V, X>) super.addCallback(callback, executor);
+  public FluentCheckedFuture<V, X> addCallback(Executor executor, FutureCallback<V> callback) {
+    return (FluentCheckedFuture<V, X>) super.addCallback(executor, callback);
   }
 
   @Override
-  public FluentCheckedFuture<V, X> onSuccess(Consumer<V> callback, Executor executor) {
-    return (FluentCheckedFuture<V, X>) super.onSuccess(callback, executor);
+  public FluentCheckedFuture<V, X> onSuccess(Executor executor, Consumer<V> callback) {
+    return (FluentCheckedFuture<V, X>) super.onSuccess(executor, callback);
   }
 
   @Override
@@ -73,8 +73,8 @@ class CheckedWrapper<V, X extends Exception> extends FluentWrapper<V> implements
   }
 
   @Override
-  public FluentCheckedFuture<V, X> onFailure(Consumer<Throwable> callback, Executor executor) {
-    return (FluentCheckedFuture<V, X>) super.onFailure(callback, executor);
+  public FluentCheckedFuture<V, X> onFailure(Executor executor, Consumer<Throwable> callback) {
+    return (FluentCheckedFuture<V, X>) super.onFailure(executor, callback);
   }
 
   @Override
