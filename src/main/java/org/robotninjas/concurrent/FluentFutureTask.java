@@ -35,32 +35,32 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
 
   @Override
   public <Y> FluentFuture<Y> transform(Function<V, Y> func) {
-    return new FluentWrapper<>(Futures.transform(this, func));
+    return new FluentDecorator<>(Futures.transform(this, func));
   }
 
   @Override
   public <Y> FluentFuture<Y> transform(Executor executor, Function<V, Y> func) {
-    return new FluentWrapper<>(Futures.transform(this, func, executor));
+    return new FluentDecorator<>(Futures.transform(this, func, executor));
   }
 
   @Override
   public <Y> FluentFuture<Y> transform(AsyncFunction<V, Y> func) {
-    return new FluentWrapper<>(Futures.transform(this, func));
+    return new FluentDecorator<>(Futures.transform(this, func));
   }
 
   @Override
   public <Y> FluentFuture<Y> transform(Executor executor, AsyncFunction<V, Y> func) {
-    return new FluentWrapper<>(Futures.transform(this, func, executor));
+    return new FluentDecorator<>(Futures.transform(this, func, executor));
   }
 
   @Override
   public FluentFuture<V> withFallback(FutureFallback<V> fallback) {
-    return new FluentWrapper<>(Futures.withFallback(this, fallback));
+    return new FluentDecorator<>(Futures.withFallback(this, fallback));
   }
 
   @Override
   public FluentFuture<V> withFallback(Executor executor, FutureFallback<V> fallback) {
-    return new FluentWrapper<>(Futures.withFallback(this, fallback, executor));
+    return new FluentDecorator<>(Futures.withFallback(this, fallback, executor));
   }
 
   @Override
@@ -77,7 +77,7 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
 
   @Override
   public FluentFuture<V> onSuccess(Executor executor, final Consumer<V> callback) {
-    return addCallback(executor, ConsumerWrapper.success(callback));
+    return addCallback(executor, ConsumerDecorator.success(callback));
   }
 
   @Override
@@ -87,7 +87,7 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
 
   @Override
   public FluentFuture<V> onFailure(Executor executor, final Consumer<Throwable> callback) {
-    return addCallback(executor, ConsumerWrapper.<V>failure(callback));
+    return addCallback(executor, ConsumerDecorator.<V>failure(callback));
   }
 
   @Override
@@ -97,7 +97,7 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
 
   @Override
   public <E extends Exception> FluentCheckedFuture<V, E> makeChecked(Function<Exception, E> func) {
-    return new CheckedWrapper<>(Futures.makeChecked(this, func));
+    return new CheckedDecorator<>(Futures.makeChecked(this, func));
   }
 
   @Override

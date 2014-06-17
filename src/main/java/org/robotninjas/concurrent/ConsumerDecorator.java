@@ -3,12 +3,12 @@ package org.robotninjas.concurrent;
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.FutureCallback;
 
-class ConsumerWrapper<V> implements FutureCallback<V> {
+class ConsumerDecorator<V> implements FutureCallback<V> {
 
   private final Optional<Consumer<V>> success;
   private final Optional<Consumer<Throwable>> failure;
 
-  private ConsumerWrapper(Consumer<V> success, Consumer<Throwable> failure) {
+  private ConsumerDecorator(Consumer<V> success, Consumer<Throwable> failure) {
     this.success = Optional.fromNullable(success);
     this.failure = Optional.fromNullable(failure);
   }
@@ -28,11 +28,11 @@ class ConsumerWrapper<V> implements FutureCallback<V> {
   }
 
   public static <V> FutureCallback<V> success(Consumer<V> callback) {
-    return new ConsumerWrapper<>(callback, null);
+    return new ConsumerDecorator<>(callback, null);
   }
 
   public static <V> FutureCallback<V> failure(Consumer<Throwable> callback) {
-    return new ConsumerWrapper<>(null, callback);
+    return new ConsumerDecorator<>(null, callback);
   }
 
 }

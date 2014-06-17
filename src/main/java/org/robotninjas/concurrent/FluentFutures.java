@@ -17,7 +17,7 @@ public class FluentFutures {
    * @return a new completed future
    */
   public static <Y> FluentFuture<Y> from(Y value) {
-    return new FluentWrapper<>(Futures.immediateFuture(value));
+    return new FluentDecorator<>(Futures.immediateFuture(value));
   }
 
   /**
@@ -28,37 +28,37 @@ public class FluentFutures {
    * @return a new exceptional future
    */
   public static <Y> FluentFuture<Y> from(Exception exception) {
-    return new FluentWrapper<>(Futures.<Y>immediateFailedFuture(exception));
+    return new FluentDecorator<>(Futures.<Y>immediateFailedFuture(exception));
   }
 
   public static <Y> FluentFuture<Y> from(Y value, Executor executor) {
-    return new FluentWrapper<>(Futures.immediateFuture(value), executor);
+    return new FluentDecorator<>(Futures.immediateFuture(value), executor);
   }
 
   public static <Y> FluentFuture<Y> from(ListenableFuture<Y> future) {
-    return new FluentWrapper<>(future);
+    return new FluentDecorator<>(future);
   }
 
   public static <Y> FluentFuture<Y> from(ListenableFuture<Y> future, Executor executor) {
-    return new FluentWrapper<>(future, executor);
+    return new FluentDecorator<>(future, executor);
   }
 
   @SafeVarargs
   public static <Y> FluentFuture<List<Y>> from(ListenableFuture<Y>... futures) {
-    return new FluentWrapper<>(Futures.allAsList(Arrays.asList(futures)));
+    return new FluentDecorator<>(Futures.allAsList(Arrays.asList(futures)));
   }
 
   @SafeVarargs
   public static <Y> FluentFuture<List<Y>> from(Executor executor, ListenableFuture<Y>... futures) {
-    return new FluentWrapper<>(Futures.allAsList(Arrays.asList(futures)), executor);
+    return new FluentDecorator<>(Futures.allAsList(Arrays.asList(futures)), executor);
   }
 
   public static <Y> FluentFuture<List<Y>> from(Iterable<ListenableFuture<Y>> futures) {
-    return new FluentWrapper<>(Futures.allAsList(futures));
+    return new FluentDecorator<>(Futures.allAsList(futures));
   }
 
   public static <Y> FluentFuture<List<Y>> from(Iterable<ListenableFuture<Y>> futures, Executor executor) {
-    return new FluentWrapper<>(Futures.allAsList(futures), executor);
+    return new FluentDecorator<>(Futures.allAsList(futures), executor);
   }
 
   public static <X, Y, Z> FluentFuture<Z> combine(ListenableFuture<X> input1, final ListenableFuture<Y> input2,

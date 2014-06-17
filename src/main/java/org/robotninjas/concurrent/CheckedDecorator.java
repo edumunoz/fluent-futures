@@ -8,16 +8,16 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-class CheckedWrapper<V, X extends Exception> extends FluentWrapper<V> implements FluentCheckedFuture<V, X> {
+class CheckedDecorator<V, X extends Exception> extends FluentDecorator<V> implements FluentCheckedFuture<V, X> {
 
   private final CheckedFuture<V, X> f;
 
-  CheckedWrapper(CheckedFuture<V, X> future, Executor executor) {
+  CheckedDecorator(CheckedFuture<V, X> future, Executor executor) {
     super(future, executor);
     this.f = future;
   }
 
-  CheckedWrapper(CheckedFuture<V, X> future) {
+  CheckedDecorator(CheckedFuture<V, X> future) {
     super(future);
     this.f = future;
   }
