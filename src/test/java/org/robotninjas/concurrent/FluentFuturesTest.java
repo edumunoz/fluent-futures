@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import sun.jvm.hotspot.livejvm.ExceptionEvent;
 
 import java.util.concurrent.ExecutionException;
 
