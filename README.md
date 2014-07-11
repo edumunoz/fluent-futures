@@ -2,6 +2,16 @@ This is my attempt to provide a fluent future for Java (mainly java6 and java7 a
 
 The base type included here is `FluentFuture<V>` which builds on Guava's `ListenableFuture<V>` and adds methods to make the operations under Guava's `Futures` utility class members. Most of the existing types and interfaces are preserved, as is, from Guava and a few new ones have been added where it makes sense.
 
+Get it:
+
+```xml
+    <groupId>org.robotninjas</groupId>
+    <artifactId>fluent-futures</artifactId>
+    <version>1.1-SNAPSHOT</version>
+```
+
+Basic interface
+
 ```java
 public interface FluentFuture<V> extends ListenableFuture<V> {
 
