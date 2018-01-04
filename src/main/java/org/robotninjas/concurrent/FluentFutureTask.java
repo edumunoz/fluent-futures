@@ -49,12 +49,12 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
     }
 
     @Override
-    public <Y> FluentFuture<Y> transform(Executor executor, Function<V, Y> func) {
+    public <Y> FluentFuture<Y> transform(Executor executor, Function<? super V, ? extends Y> func) {
         return new FluentDecorator<>(Futures.transform(this, func, executor));
     }
 
     @Override
-    public <Y> FluentFuture<Y> transformAsync(Executor executor, AsyncFunction<V, Y> func) {
+    public <Y> FluentFuture<Y> transformAsync(Executor executor, AsyncFunction<? super V, ? extends Y> func) {
         return new FluentDecorator<>(Futures.transformAsync(this, func, executor));
     }
 

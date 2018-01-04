@@ -43,12 +43,12 @@ class CheckedDecorator<V, X extends Exception> extends FluentDecorator<V> implem
     }
 
     @Override
-    public <Y> FluentCheckedFuture<Y, X> transform(Executor executor, Function<V, Y> func) {
+    public <Y> FluentCheckedFuture<Y, X> transform(Executor executor, Function<? super V, ? extends Y> func) {
         return (FluentCheckedFuture<Y, X>) super.transform(executor, func);
     }
 
     @Override
-    public <Y> FluentCheckedFuture<Y, X> transformAsync(Executor executor, AsyncFunction<V, Y> func) {
+    public <Y> FluentCheckedFuture<Y, X> transformAsync(Executor executor, AsyncFunction<? super V,? extends Y> func) {
         return (FluentCheckedFuture<Y, X>) super.transformAsync(executor, func);
     }
 
