@@ -21,7 +21,6 @@ import com.google.common.base.Function;
 import com.google.common.util.concurrent.AsyncFunction;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.MoreExecutors;
 
 import java.util.Arrays;
 import java.util.List;
@@ -142,7 +141,7 @@ public class FluentFutures {
     public static <X, Y, Z> FluentFuture<Z> combine(ListenableFuture<X> input1, final ListenableFuture<Y> input2,
                                                     final Combine2<X, Y, Z> combine, Executor executor) {
 
-        return FluentFutures.from(Futures.transform(input1, new AsyncFunction<X, Z>() {
+        return FluentFutures.from(Futures.transformAsync(input1, new AsyncFunction<X, Z>() {
             public ListenableFuture<Z> apply(final X left) throws Exception {
                 return Futures.transform(input2, new Function<Y, Z>() {
                     public Z apply(Y right) {
@@ -151,22 +150,6 @@ public class FluentFutures {
                 });
             }
         }, executor));
-    }
-
-    /**
-     *
-     * @param input1
-     * @param input2
-     * @param combine
-     * @param <X>
-     * @param <Y>
-     * @param <Z>
-     * @return
-     */
-    public static <X, Y, Z> FluentFuture<Z> combine(ListenableFuture<X> input1, ListenableFuture<Y> input2,
-                                                    Combine2<X, Y, Z> combine) {
-
-        return combine(input1, input2, combine, MoreExecutors.sameThreadExecutor());
     }
 
 }

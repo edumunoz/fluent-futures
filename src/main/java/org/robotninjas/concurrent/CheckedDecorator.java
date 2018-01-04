@@ -48,8 +48,8 @@ class CheckedDecorator<V, X extends Exception> extends FluentDecorator<V> implem
     }
 
     @Override
-    public <Y> FluentCheckedFuture<Y, X> transform(Executor executor, AsyncFunction<V, Y> func) {
-        return (FluentCheckedFuture<Y, X>) super.transform(executor, func);
+    public <Y> FluentCheckedFuture<Y, X> transformAsync(Executor executor, AsyncFunction<V, Y> func) {
+        return (FluentCheckedFuture<Y, X>) super.transformAsync(executor, func);
     }
 
 //    @Override
@@ -88,13 +88,13 @@ class CheckedDecorator<V, X extends Exception> extends FluentDecorator<V> implem
     }
 
     @Override
-    public <Y extends Exception> V get(long l, TimeUnit timeUnit, Class<Y> exceptionClass) throws Y {
-        return super.get(l, timeUnit, exceptionClass);
+    public <Y extends Exception> V getChecked(TimeUnit timeUnit, Class<Y> exceptionClass, long l) throws Y {
+        return super.getChecked(timeUnit, exceptionClass, l);
     }
 
     @Override
-    public <E extends Exception> V get(Class<E> exceptionClass) throws E {
-        return super.get(exceptionClass);
+    public <E extends Exception> V getChecked(Class<E> exceptionClass) throws E {
+        return super.getChecked(exceptionClass);
     }
 
     @Override

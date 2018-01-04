@@ -54,8 +54,8 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
     }
 
     @Override
-    public <Y> FluentFuture<Y> transform(Executor executor, AsyncFunction<V, Y> func) {
-        return new FluentDecorator<>(Futures.transform(this, func, executor));
+    public <Y> FluentFuture<Y> transformAsync(Executor executor, AsyncFunction<V, Y> func) {
+        return new FluentDecorator<>(Futures.transformAsync(this, func, executor));
     }
 
 //    @Override
@@ -95,13 +95,13 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
     }
 
     @Override
-    public <X extends Exception> V get(long l, TimeUnit timeUnit, Class<X> exceptionClass) throws X {
-        return Futures.get(this, l, timeUnit, exceptionClass);
+    public <X extends Exception> V getChecked(TimeUnit timeUnit, Class<X> exceptionClass, long l) throws X {
+        return Futures.getChecked(this, exceptionClass, l, timeUnit);
     }
 
     @Override
-    public <Y extends Exception> V get(Class<Y> exceptionClass) throws Y {
-        return Futures.get(this, exceptionClass);
+    public <Y extends Exception> V getChecked(Class<Y> exceptionClass) throws Y {
+        return Futures.getChecked(this, exceptionClass);
     }
 
     @Override

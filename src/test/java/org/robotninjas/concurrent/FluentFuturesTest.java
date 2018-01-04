@@ -5,6 +5,8 @@ import com.google.common.util.concurrent.AsyncFunction;
 import com.google.common.util.concurrent.Callables;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,7 +14,7 @@ import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
 
-import static com.google.common.util.concurrent.MoreExecutors.sameThreadExecutor;
+import static com.google.common.util.concurrent.MoreExecutors.newDirectExecutorService;
 import static com.google.common.util.concurrent.MoreExecutors.shutdownAndAwaitTermination;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
@@ -25,7 +27,7 @@ public class FluentFuturesTest {
 
     @Before
     public void setup() {
-        fluentExecutor = fluentDecorator(sameThreadExecutor());
+        fluentExecutor = fluentDecorator(newDirectExecutorService());
     }
 
     @After
@@ -65,7 +67,7 @@ public class FluentFuturesTest {
 
         FluentFuture<Double> ff = fluentExecutor
                 .submit(Callables.returning(1))
-                .transform(ToDoubleFunction.CONVERT);
+                .transformAsync(MoreExecutors.newDirectExecutorService(), ToDoubleFunction.CONVERT);
 
         assertEquals((Double) 1.0, ff.get());
 
@@ -75,7 +77,7 @@ public class FluentFuturesTest {
     public void testCheckedFuture() throws CustomException {
 
         FluentCheckedFuture<Object, CustomException> cf = FluentFutures.from(1)
-                .transform(ThrowingFunction.THROW)
+                .transformAsync(MoreExecutors.newDirectExecutorService(), ThrowingFunction.THROW)
                 .makeChecked(ExceptionConverterFunction.CONVERT);
 
         cf.checkedGet();

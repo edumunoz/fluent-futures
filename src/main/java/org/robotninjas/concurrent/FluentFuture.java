@@ -30,7 +30,7 @@ import java.util.concurrent.TimeoutException;
 public interface FluentFuture<V> extends ListenableFuture<V> {
     <Y> FluentFuture<Y> transform(Executor executor, Function<V, Y> func);
 
-    <Y> FluentFuture<Y> transform(Executor executor, AsyncFunction<V, Y> func);
+    <Y> FluentFuture<Y> transformAsync(Executor executor, AsyncFunction<V, Y> func);
 
 //    FluentFuture<V> withFallback(FutureFallback<V> fallback);
 //
@@ -46,8 +46,8 @@ public interface FluentFuture<V> extends ListenableFuture<V> {
 
     V get(long l, TimeUnit timeUnit) throws InterruptedException, ExecutionException, TimeoutException;
 
-    <X extends Exception> V get(long l, TimeUnit timeUnit, Class<X> exceptionClass) throws X;
+    <X extends Exception> V getChecked(TimeUnit timeUnit, Class<X> exceptionClass, long l) throws X;
 
-    <E extends Exception> V get(Class<E> exceptionClass) throws E;
+    <E extends Exception> V getChecked(Class<E> exceptionClass) throws E;
 
 }

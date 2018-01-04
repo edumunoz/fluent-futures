@@ -44,7 +44,7 @@ class FluentDecorator<V> extends ForwardingListenableFuture.SimpleForwardingList
     }
 
     @Override
-    public <Y> FluentFuture<Y> transform(Executor executor, AsyncFunction<V, Y> func) {
+    public <Y> FluentFuture<Y> transformAsync(Executor executor, AsyncFunction<V, Y> func) {
         return new FluentDecorator<>(Futures.transformAsync(this, func, executor), this.executor);
     }
 
@@ -85,13 +85,13 @@ class FluentDecorator<V> extends ForwardingListenableFuture.SimpleForwardingList
     }
 
     @Override
-    public <X extends Exception> V get(long l, TimeUnit timeUnit, Class<X> exceptionClass) throws X {
-        return Futures.get(this, l, timeUnit, exceptionClass);
+    public <X extends Exception> V getChecked(TimeUnit timeUnit, Class<X> exceptionClass, long l) throws X {
+        return Futures.getChecked(this, exceptionClass, l, timeUnit);
     }
 
     @Override
-    public <E extends Exception> V get(Class<E> exceptionClass) throws E {
-        return Futures.get(this, exceptionClass);
+    public <E extends Exception> V getChecked(Class<E> exceptionClass) throws E {
+        return Futures.getChecked(this, exceptionClass);
     }
 
 }
