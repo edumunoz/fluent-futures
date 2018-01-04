@@ -21,7 +21,7 @@ import com.google.common.base.Function;
 import com.google.common.util.concurrent.AsyncFunction;
 import com.google.common.util.concurrent.CheckedFuture;
 import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.FutureFallback;
+//import com.google.common.util.concurrent.FutureFallback;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -62,15 +62,15 @@ class CheckedDecorator<V, X extends Exception> extends FluentDecorator<V> implem
         return (FluentCheckedFuture<Y, X>) super.transform(executor, func);
     }
 
-    @Override
-    public FluentCheckedFuture<V, X> withFallback(FutureFallback<V> fallback) {
-        return (FluentCheckedFuture<V, X>) super.withFallback(fallback);
-    }
-
-    @Override
-    public FluentCheckedFuture<V, X> withFallback(Executor executor, FutureFallback<V> fallback) {
-        return (FluentCheckedFuture<V, X>) super.withFallback(executor, fallback);
-    }
+//    @Override
+//    public FluentCheckedFuture<V, X> withFallback(FutureFallback<V> fallback) {
+//        return (FluentCheckedFuture<V, X>) super.withFallback(fallback);
+//    }
+//
+//    @Override
+//    public FluentCheckedFuture<V, X> withFallback(Executor executor, FutureFallback<V> fallback) {
+//        return (FluentCheckedFuture<V, X>) super.withFallback(executor, fallback);
+//    }
 
     @Override
     public FluentCheckedFuture<V, X> addCallback(FutureCallback<V> callback) {

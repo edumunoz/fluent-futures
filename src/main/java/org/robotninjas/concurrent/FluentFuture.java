@@ -20,7 +20,6 @@ package org.robotninjas.concurrent;
 import com.google.common.base.Function;
 import com.google.common.util.concurrent.AsyncFunction;
 import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.FutureFallback;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
@@ -38,9 +37,9 @@ public interface FluentFuture<V> extends ListenableFuture<V> {
 
     <Y> FluentFuture<Y> transform(Executor executor, AsyncFunction<V, Y> func);
 
-    FluentFuture<V> withFallback(FutureFallback<V> fallback);
-
-    FluentFuture<V> withFallback(Executor executor, FutureFallback<V> fallback);
+//    FluentFuture<V> withFallback(FutureFallback<V> fallback);
+//
+//    FluentFuture<V> withFallback(Executor executor, FutureFallback<V> fallback);
 
     FluentFuture<V> addCallback(FutureCallback<V> callback);
 

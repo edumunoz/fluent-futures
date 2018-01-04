@@ -35,7 +35,7 @@ class FluentDecorator<V> extends ForwardingListenableFuture.SimpleForwardingList
     }
 
     FluentDecorator(ListenableFuture<V> future) {
-        this(future, MoreExecutors.sameThreadExecutor());
+        this(future, MoreExecutors.directExecutor());
     }
 
     @Override
@@ -58,15 +58,15 @@ class FluentDecorator<V> extends ForwardingListenableFuture.SimpleForwardingList
         return new FluentDecorator<>(Futures.transform(this, func, executor), this.executor);
     }
 
-    @Override
-    public FluentFuture<V> withFallback(FutureFallback<V> fallback) {
-        return new FluentDecorator<>(Futures.withFallback(this, fallback));
-    }
-
-    @Override
-    public FluentFuture<V> withFallback(Executor executor, FutureFallback<V> fallback) {
-        return new FluentDecorator<>(Futures.withFallback(this, fallback, executor), this.executor);
-    }
+//    @Override
+//    public FluentFuture<V> withFallback(FutureFallback<V> fallback) {
+//        return new FluentDecorator<>(Futures.withFallback(this, fallback));
+//    }
+//
+//    @Override
+//    public FluentFuture<V> withFallback(Executor executor, FutureFallback<V> fallback) {
+//        return new FluentDecorator<>(Futures.withFallback(this, fallback, executor), this.executor);
+//    }
 
     @Override
     public FluentFuture<V> addCallback(FutureCallback<V> callback) {

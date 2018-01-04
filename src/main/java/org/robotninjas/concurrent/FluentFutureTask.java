@@ -68,15 +68,15 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
         return new FluentDecorator<>(Futures.transform(this, func, executor));
     }
 
-    @Override
-    public FluentFuture<V> withFallback(FutureFallback<V> fallback) {
-        return new FluentDecorator<>(Futures.withFallback(this, fallback));
-    }
-
-    @Override
-    public FluentFuture<V> withFallback(Executor executor, FutureFallback<V> fallback) {
-        return new FluentDecorator<>(Futures.withFallback(this, fallback, executor));
-    }
+//    @Override
+//    public FluentFuture<V> withFallback(FutureFallback<V> fallback) {
+//        return new FluentDecorator<>(Futures.withFallback(this, fallback));
+//    }
+//
+//    @Override
+//    public FluentFuture<V> withFallback(Executor executor, FutureFallback<V> fallback) {
+//        return new FluentDecorator<>(Futures.withFallback(this, fallback, executor));
+//    }
 
     @Override
     public FluentFuture<V> addCallback(FutureCallback<V> callback) {
