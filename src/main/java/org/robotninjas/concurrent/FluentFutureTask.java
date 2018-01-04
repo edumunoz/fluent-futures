@@ -49,18 +49,8 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
     }
 
     @Override
-    public <Y> FluentFuture<Y> transform(Function<V, Y> func) {
-        return new FluentDecorator<>(Futures.transform(this, func));
-    }
-
-    @Override
     public <Y> FluentFuture<Y> transform(Executor executor, Function<V, Y> func) {
         return new FluentDecorator<>(Futures.transform(this, func, executor));
-    }
-
-    @Override
-    public <Y> FluentFuture<Y> transform(AsyncFunction<V, Y> func) {
-        return new FluentDecorator<>(Futures.transform(this, func));
     }
 
     @Override
@@ -79,12 +69,6 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
 //    }
 
     @Override
-    public FluentFuture<V> addCallback(FutureCallback<V> callback) {
-        Futures.addCallback(this, callback);
-        return this;
-    }
-
-    @Override
     public FluentFuture<V> addCallback(Executor executor, FutureCallback<V> callback) {
         Futures.addCallback(this, callback, executor);
         return this;
@@ -96,18 +80,8 @@ public class FluentFutureTask<V> extends FutureTask<V> implements FluentFuture<V
     }
 
     @Override
-    public FluentFuture<V> onSuccess(final Consumer<V> callback) {
-        return onSuccess(MoreExecutors.sameThreadExecutor(), callback);
-    }
-
-    @Override
     public FluentFuture<V> onFailure(Executor executor, final Consumer<Throwable> callback) {
         return addCallback(executor, ConsumerDecorator.<V>failure(callback));
-    }
-
-    @Override
-    public FluentFuture<V> onFailure(final Consumer<Throwable> callback) {
-        return onFailure(MoreExecutors.sameThreadExecutor(), callback);
     }
 
     @Override

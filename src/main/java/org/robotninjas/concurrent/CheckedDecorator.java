@@ -43,18 +43,8 @@ class CheckedDecorator<V, X extends Exception> extends FluentDecorator<V> implem
     }
 
     @Override
-    public <Y> FluentCheckedFuture<Y, X> transform(Function<V, Y> func) {
-        return (FluentCheckedFuture<Y, X>) super.transform(func);
-    }
-
-    @Override
     public <Y> FluentCheckedFuture<Y, X> transform(Executor executor, Function<V, Y> func) {
         return (FluentCheckedFuture<Y, X>) super.transform(executor, func);
-    }
-
-    @Override
-    public <Y> FluentCheckedFuture<Y, X> transform(AsyncFunction<V, Y> func) {
-        return (FluentCheckedFuture<Y, X>) super.transform(func);
     }
 
     @Override
@@ -73,11 +63,6 @@ class CheckedDecorator<V, X extends Exception> extends FluentDecorator<V> implem
 //    }
 
     @Override
-    public FluentCheckedFuture<V, X> addCallback(FutureCallback<V> callback) {
-        return (FluentCheckedFuture<V, X>) super.addCallback(callback);
-    }
-
-    @Override
     public FluentCheckedFuture<V, X> addCallback(Executor executor, FutureCallback<V> callback) {
         return (FluentCheckedFuture<V, X>) super.addCallback(executor, callback);
     }
@@ -88,18 +73,8 @@ class CheckedDecorator<V, X extends Exception> extends FluentDecorator<V> implem
     }
 
     @Override
-    public FluentCheckedFuture<V, X> onSuccess(Consumer<V> callback) {
-        return (FluentCheckedFuture<V, X>) super.onSuccess(callback);
-    }
-
-    @Override
     public FluentCheckedFuture<V, X> onFailure(Executor executor, Consumer<Throwable> callback) {
         return (FluentCheckedFuture<V, X>) super.onFailure(executor, callback);
-    }
-
-    @Override
-    public FluentCheckedFuture<V, X> onFailure(Consumer<Throwable> callback) {
-        return (FluentCheckedFuture<V, X>) super.onFailure(callback);
     }
 
     @Override
